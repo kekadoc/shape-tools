@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimen_corner_size">24dp</dimen>
+    <dimen name="dimen_elevation">24dp</dimen>
+    <dimen name="dimen_stroke">6dp</dimen>
+    <dimen name="dimen_padding">12dp</dimen>
+</resources>

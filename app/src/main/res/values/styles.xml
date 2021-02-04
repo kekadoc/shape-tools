@@ -1,0 +1,10 @@
+<resources>
+
+    <style name="ViewTest">
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+</resources>

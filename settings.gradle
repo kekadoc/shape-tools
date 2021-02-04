@@ -1,0 +1,3 @@
+include ':shaper'
+include ':app'
+rootProject.name = "ShapeTools"
