@@ -44,10 +44,6 @@ dependencies {
 
     implementation project(':shaper')
 
-    //implementation 'com.github.kekadoc:tools:0.3.3'
-    //implementation 'com.github.kekadoc:android-tools:0.1.0'
-    //implementation 'com.github.kekadoc:android-tools:0.1.1'
-
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

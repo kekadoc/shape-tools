@@ -1,5 +1,7 @@
 package com.kekadoc.tools.android.shape
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -12,18 +14,25 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import com.kekadoc.tools.android.*
 import com.kekadoc.tools.android.log.log
 import com.kekadoc.tools.android.shaper.*
-import com.kekadoc.tools.android.shaper.ShapedDrawableBuilder.Companion.cutAllCorners
 import com.kekadoc.tools.android.shaper.corners.CutRoundedCornerTreatment
-import com.kekadoc.tools.android.shaper.edges.DefEdgeTreatment
 import com.kekadoc.tools.android.shaper.edges.SquareEdgeTreatment
 import com.kekadoc.tools.android.view.ViewUtils.doOnMeasureView
+import com.kekadoc.tools.value.ValueUtils
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import kotlin.system.measureTimeMillis
 
+// TODO: 12.02.2021 Update Android Tools and use from
+fun Activity.asContextScope(): ContextScope = object : ContextScope {
+    override fun getContext(): Context {
+        return this@asContextScope
+    }
+}
+
 class MainActivity : AppCompatActivity() {
-    private val TAG = "MainActivity-TAG"
+
+    companion object {
+        private const val TAG: String = "MainActivity-TAG"
+    }
 
     var shapedDrawable: ShapedDrawable? = null
 
@@ -48,113 +57,130 @@ class MainActivity : AppCompatActivity() {
         cardView!!.doOnMeasureView {
             makeCard()
             makeFrame()
-            measureTimeMillis { makeView_3() }.log().e(msg = "- - ")
-            measureTimeMillis { makeView_3() }.log().e(msg = "3 - ")
-            measureTimeMillis { makeView_2() }.log().e(msg = "2 - ")
-            measureTimeMillis { makeView_1() }.log().e(msg = "1 - ")
             measureTimeMillis { makeView_0() }.log().e(msg = "0 - ")
+            measureTimeMillis { makeView_1() }.log().e(msg = "1 - ")
+            measureTimeMillis { makeView_2() }.log().e(msg = "2 - ")
+            measureTimeMillis { makeView_3() }.log().e(msg = "3 - ")
         }
     }
 
+    /**
+     * Edge Test
+     */
     private fun makeView_0() {
         view_0!!.background = ShapedDrawableBuilder.createWithContext(this) {
-            setAllCorner(RoundedCornerTreatment(), dimen(R.dimen.dimen_corner_size))
-            setAllEdge(SquareEdgeTreatment(dpToPx(44f), dpToPx(16f), dpToPx(4f)))
+            shape {
+                setAllCorner(RoundedCornerTreatment(), dimen(R.dimen.dimen_corner_size))
+                setAllEdges(SquareEdgeTreatment(dpToPx(44f), dpToPx(16f), dpToPx(4f)))
+            }
             setTint(Color.YELLOW)
-            setStroke(dpToPx(2f), Color.BLUE)
+            setStroke(dpToPx(4f), Color.BLUE)
             setRippleColor(themeColor(android.R.attr.colorAccent))
             setElevation(dpToPx(14f))
             setShadowColor(color(R.color.BLACK))
-            setAllPadding(dpToPx(3f).toInt())
+            setPadding(dpToPx(3f).toInt())
             setAlpha(50)
-            cutAllCorners(dimen(R.dimen.dimen_corner_size))
         }.build()
-        view_0!!.elevation = 100f
     }
 
+    /**
+     * Corner Test
+     */
     private fun makeView_1() {
-        view_1!!.background = ShapedDrawableBuilder.createWithContext(this) {
-            //setAllCorner(RoundedCornerTreatment(), dimen(R.dimen.dimen_corner_size))
-            //setAllEdge(CurveEdgeTreatment(30f))
+        view_1!!.background = shapedDrawable {
+            shape {
+                cutAllCorners(dimen(R.dimen.dimen_corner_size))
+            }
             setTint(Color.YELLOW)
-            setStroke(dpToPx(2f), Color.BLUE)
             setRippleColor(themeColor(android.R.attr.colorAccent))
             setElevation(dpToPx(14f))
             setShadowColor(color(R.color.Aqua))
-            setAllPadding(dpToPx(16f).toInt())
+            setPadding(dpToPx(16f).toInt())
+            setInset(inset = dpToPx(16f).toInt())
             setAlpha(50)
-            cutAllCorners(dimen(R.dimen.dimen_corner_size))
-        }.build()
+        }
     }
 
     private fun makeView_2() {
+        var negative = true
         view_2!!.setOnClickListener {
             runInterpolation {
-                shapedDrawable?.setInterpolation(it)
+                shapedDrawable?.let {
+                    val change = 0.01f * (if (negative) -1.0f else 1.0f)
+                    ValueUtils.addValueInRange(0f, 1f, it.getShapeDrawable()!!.interpolation, change, object : ValueUtils.RangeChangeEvents<Float> {
+                        override fun onChange(min: Float, max: Float, current: Float, change: Float) {
+                            it.getShapeDrawable()?.interpolation = current
+                        }
+                        override fun onMax(min: Float, max: Float) {
+                            it.getShapeDrawable()?.interpolation = max
+                            negative = !negative
+                        }
+                        override fun onMin(min: Float, max: Float) {
+                            it.getShapeDrawable()?.interpolation = min
+                            negative = !negative
+                        }
+                        override fun onOverflow(min: Float, max: Float, current: Float, overflow: Float) {
+
+                        }
+                    })
+                }
             }
         }
-        shapedDrawable = ShapedDrawableBuilder.createWithContext(this) {
-            setAllCorner(CutRoundedCornerTreatment(1f), dimen(R.dimen.dimen_corner_size))
-            setAllEdge(DefEdgeTreatment())
+
+        shapedDrawable = shapedDrawable(asContextScope()) {
+            shape {
+                cutTopLeftCorner(dpToPx(64f))
+                roundTopRightCorner(dpToPx(48f))
+                cutBottomRightCorner(dpToPx(64f))
+                roundBottomLeftCorner(dpToPx(48f))
+            }
             setTint(Color.YELLOW)
             setStroke(dpToPx(6f), Color.BLUE)
             setRippleColor(themeColor(android.R.attr.colorAccent))
-            setElevation(dpToPx(14f))
-            setShadowColor(color(R.color.Aqua))
-            setAllPadding(dpToPx(16f).toInt())
-            setAlpha(50)
-            //cutAllCorners(dimen(R.dimen.dimen_corner_size))
-        }.build()
+            setElevation(dpToPx(24f))
+            setShadowColor(color(R.color.Red))
+            setPadding(dpToPx(8f).toInt())
+            setAlpha(255)
+        }
         view_2!!.background = shapedDrawable
     }
 
     private fun makeView_3() {
         val model = ShapeAppearanceModel.builder()
-            .setAllCornerSizes(160f)
-            .setAllCorners(CutRoundedCornerTreatment(0.4f))
-            //.setAllEdges(DefEdgeTreatment())
+            .setAllCornerSizes(dpToPx(24f))
+            .setAllCorners(CutRoundedCornerTreatment(0.1f))
             .build()
-        val shapeDrawable = MaterialShapeDrawable(model).apply {
-            elevation = 110f
+        view_3!!.background = MaterialShapeDrawable(model).apply {
+            elevation = dpToPx(12f)
             setShadowColor(Color.MAGENTA)
-            setTint(Color.YELLOW)
-            //shadowCompatibilityMode = MaterialShapeDrawable.SHADOW_COMPAT_MODE_DEFAULT
+            setTint(Color.GRAY)
             shadowCompatibilityMode = MaterialShapeDrawable.SHADOW_COMPAT_MODE_ALWAYS
-            //shadowCompatibilityMode = MaterialShapeDrawable.SHADOW_COMPAT_MODE_NEVER
-            shadowRadius = 122;
             setUseTintColorForShadow(true)
-            requiresCompatShadow().log().e(msg = "requiresCompatShadow: ")
         }
-        //val shapeDrawable1 = MaterialShapeDrawable(model)
-        //shapeDrawable1.setTint(Color.YELLOW);
-        //val colorStateList = ColorStateList(arrayOf(intArrayOf()), intArrayOf(Color.RED))
-        //val rippleDrawable = RippleDrawable(colorStateList, null, shapeDrawable1)
-        //rippleDrawable.setPaddingMode(LayerDrawable.PADDING_MODE_NEST);
-        //val layerDrawable = LayerDrawable(arrayOf(shapeDrawable, rippleDrawable))
-        view_3!!.background =  shapeDrawable
     }
 
     private fun makeCard() {}
+
     private fun makeFrame() {
-        frameLayout!!.setBackgroundColor(Color.YELLOW)
-        frameLayout!!.background = resources.getDrawable(R.drawable.none, theme)
+       frameLayout!!.background = DrawableUtils.getRipple(Color.CYAN, Color.RED)
     }
 
-
-    private fun runInterpolation(update: (interpolation: Float) -> Unit) {
-        GlobalScope.launch {
-            val timer = flow { // flow builder
-                for (i in 0..100) {
+    var job: Job? = null
+    private fun runInterpolation(update: () -> Unit) {
+        if (job == null) {
+            job = GlobalScope.launch {
+                while (true) {
+                    withContext(Dispatchers.Main) {
+                        update.invoke()
+                    }
                     delay(10)
-                    emit(i)
                 }
             }
-            timer.collect {
-                withContext(Dispatchers.Main) {
-                    update.invoke(it / 100f)
-                }
-            }
+        } else {
+            job?.cancel()
+            job = null
         }
+
     }
 
 }

@@ -41,6 +41,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:elevation="100dp"
+        android:background="@color/Coral"
+        android:foreground="?selectableItemBackground"
         app:layout_constraintBottom_toTopOf="@+id/view_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/materialCardView"
