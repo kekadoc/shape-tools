@@ -1,9 +1,6 @@
 package com.kekadoc.tools.android.shape
 
-import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.LayerDrawable
-import android.graphics.drawable.RippleDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
@@ -16,11 +13,8 @@ import com.kekadoc.tools.android.*
 import com.kekadoc.tools.android.log.log
 import com.kekadoc.tools.android.shaper.*
 import com.kekadoc.tools.android.shaper.ShapedDrawableBuilder.Companion.cutAllCorners
-import com.kekadoc.tools.android.shaper.corners.CutCircleCornerTreatment
 import com.kekadoc.tools.android.shaper.corners.CutRoundedCornerTreatment
-import com.kekadoc.tools.android.shaper.corners.CutSquareCornerTreatment
 import com.kekadoc.tools.android.shaper.edges.DefEdgeTreatment
-import com.kekadoc.tools.android.shaper.edges.CurveEdgeTreatment
 import com.kekadoc.tools.android.shaper.edges.SquareEdgeTreatment
 import com.kekadoc.tools.android.view.ViewUtils.doOnMeasureView
 import kotlinx.coroutines.*

@@ -120,7 +120,7 @@ open class ShapedDrawableBuilder : AbstractBuilder<ShapedDrawable, ShapeAppearan
     private var rippleColor: Int? = null
 
     @IntRange(from = 0, to = 255)
-    private var alpha = 0
+    private var alpha = 255
 
     @Px private var leftPadding = 0
     @Px private var topPadding = 0
