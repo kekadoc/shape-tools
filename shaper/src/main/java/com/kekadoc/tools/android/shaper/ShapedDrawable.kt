@@ -20,10 +20,10 @@ import java.lang.IndexOutOfBoundsException
 inline fun shapedDrawable(building: ShapedDrawableBuilder.() -> Unit): ShapedDrawable {
     return ShapedDrawableBuilder.create(building).build()
 }
-inline fun shapedDrawable(context: Context, building: ShapedDrawableBuilder.() -> Unit): ShapedDrawable {
+inline fun shapedDrawable(context: Context, building: ShapedDrawableBuilder.WithContext.() -> Unit): ShapedDrawable {
     return ShapedDrawableBuilder.createWithContext(context, building).build()
 }
-inline fun shapedDrawable(context: ContextScope, building: ShapedDrawableBuilder.() -> Unit): ShapedDrawable {
+inline fun shapedDrawable(context: ContextScope, building: ShapedDrawableBuilder.WithContext.() -> Unit): ShapedDrawable {
     return ShapedDrawableBuilder.createWithContext(context, building).build()
 }
 
