@@ -3,9 +3,12 @@ package com.kekadoc.tools.android.shape
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
+import androidx.annotation.FloatRange
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -72,9 +75,19 @@ class MainActivity : AppCompatActivity() {
             shape {
                 setAllCorner(RoundedCornerTreatment(), dimen(R.dimen.dimen_corner_size))
                 setAllEdges(SquareEdgeTreatment(dpToPx(44f), dpToPx(16f), dpToPx(4f)))
+                tint {
+
+                }
             }
-            setTint(Color.YELLOW)
-            setStroke(dpToPx(4f), Color.BLUE)
+            tint {
+                tintOf(Color.YELLOW)
+            }
+            stroke {
+                width = dpToPx(4f)
+                colorOf(Color.BLUE)
+            }
+            setTint()
+            setStroke(, Color.BLUE)
             setRippleColor(themeColor(android.R.attr.colorAccent))
             setElevation(dpToPx(14f))
             setShadowColor(color(R.color.BLACK))
@@ -90,7 +103,33 @@ class MainActivity : AppCompatActivity() {
         view_1!!.background = shapedDrawable {
             shape {
                 cutAllCorners(dimen(R.dimen.dimen_corner_size))
+                shape {
+
+                }
             }
+            ripple {
+                colorOf(Color.WHITE)
+                padd
+            }
+            padding {
+                a
+            }
+            alpha {
+
+            }
+            inset {
+                left = 2
+                top = 3
+                inset {
+                    left = 3
+                }
+            }
+            setInset(
+                    left = 0,
+                    top = 1,
+                    right = 2,
+                    bottom = 3
+            )
             setTint(Color.YELLOW)
             setRippleColor(themeColor(android.R.attr.colorAccent))
             setElevation(dpToPx(14f))
@@ -146,23 +185,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun makeView_3() {
-        val model = ShapeAppearanceModel.builder()
-            .setAllCornerSizes(dpToPx(24f))
-            .setAllCorners(CutRoundedCornerTreatment(0.1f))
-            .build()
-        view_3!!.background = MaterialShapeDrawable(model).apply {
-            elevation = dpToPx(12f)
-            setShadowColor(Color.MAGENTA)
-            setTint(Color.GRAY)
-            shadowCompatibilityMode = MaterialShapeDrawable.SHADOW_COMPAT_MODE_ALWAYS
-            setUseTintColorForShadow(true)
+        val insetDrawable = InsetDrawable(ColorDrawable(Color.GRAY), dpToPx(20f))
+        view_3!!.background = insetDrawable
+
+        view_3!!.setOnClickListener {
+            insetDrawable.drawable = ColorDrawable(Color.BLUE)
         }
     }
 
     private fun makeCard() {}
 
     private fun makeFrame() {
-       frameLayout!!.background = DrawableUtils.getRipple(Color.CYAN, Color.RED)
+      // frameLayout!!.background = DrawableUtils.getRipple(Color.CYAN, Color.RED)
+        frameLayout!!.background = DrawableUtils.getSelectableItemBackground(this)
     }
 
     var job: Job? = null
@@ -182,5 +217,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 
 }
