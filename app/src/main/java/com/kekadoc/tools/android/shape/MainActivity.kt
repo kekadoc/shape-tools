@@ -1,7 +1,5 @@
 package com.kekadoc.tools.android.shape
 
-import android.app.Activity
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -20,13 +18,6 @@ import com.kekadoc.tools.android.view.ViewUtils.doOnMeasureView
 import com.kekadoc.tools.value.ValueUtils
 import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
-
-// TODO: 12.02.2021 Update Android Tools and use from
-fun Activity.asContextScope(): ContextScope = object : ContextScope {
-    override fun getContext(): Context {
-        return this@asContextScope
-    }
-}
 
 class MainActivity : AppCompatActivity() {
 
