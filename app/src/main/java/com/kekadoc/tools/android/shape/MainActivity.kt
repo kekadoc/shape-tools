@@ -2,17 +2,18 @@ package com.kekadoc.tools.android.shape
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.android.material.shape.RoundedCornerTreatment
-import com.google.android.material.shape.ShapeAppearanceModel
+import com.google.android.material.shape.*
 import com.kekadoc.tools.android.*
 import com.kekadoc.tools.android.log.log
 import com.kekadoc.tools.android.shaper.*
 import com.kekadoc.tools.android.shaper.corners.CutRoundedCornerTreatment
+import com.kekadoc.tools.android.shaper.corners.RelativeCornerSize
+import com.kekadoc.tools.android.shaper.corners.fullSize
 import com.kekadoc.tools.android.shaper.edges.SquareEdgeTreatment
 import com.kekadoc.tools.android.view.ViewUtils.doOnMeasureView
 import com.kekadoc.tools.value.ValueUtils
@@ -80,7 +81,8 @@ class MainActivity : AppCompatActivity() {
     private fun makeView_1() {
         view_1!!.background = shapedDrawable {
             shape {
-                cutAllCorners(dimen(R.dimen.dimen_corner_size))
+                //cutAllCorners(dimen(R.dimen.dimen_corner_size))
+                setAllCornerSizes(fullSize())
             }
             setTint(Color.YELLOW)
             setRippleColor(themeColor(android.R.attr.colorAccent))
@@ -99,20 +101,18 @@ class MainActivity : AppCompatActivity() {
                 shapedDrawable?.let {
                     val change = 0.01f * (if (negative) -1.0f else 1.0f)
                     ValueUtils.addValueInRange(0f, 1f, it.getShapeDrawable()!!.interpolation, change, object : ValueUtils.RangeChangeEvents<Float> {
-                        override fun onChange(min: Float, max: Float, current: Float, change: Float) {
-                            it.getShapeDrawable()?.interpolation = current
+                        override fun onChange(oldValue: Float, newValue: Float) {
+                            it.getShapeDrawable()?.interpolation = newValue
                         }
-                        override fun onMax(min: Float, max: Float) {
+                        override fun onMax(max: Float) {
                             it.getShapeDrawable()?.interpolation = max
                             negative = !negative
                         }
-                        override fun onMin(min: Float, max: Float) {
+                        override fun onMin(min: Float) {
                             it.getShapeDrawable()?.interpolation = min
                             negative = !negative
                         }
-                        override fun onOverflow(min: Float, max: Float, current: Float, overflow: Float) {
-
-                        }
+                        override fun onOverflow(overflow: Float) {}
                     })
                 }
             }
@@ -138,8 +138,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun makeView_3() {
         val model = ShapeAppearanceModel.builder()
-            .setAllCornerSizes(dpToPx(24f))
-            .setAllCorners(CutRoundedCornerTreatment(0.1f))
+            .setAllCornerSizes(RelativeCornerSize(0.5f))
+            .setAllCorners(RoundedCornerTreatment())
             .build()
         view_3!!.background = MaterialShapeDrawable(model).apply {
             elevation = dpToPx(12f)
