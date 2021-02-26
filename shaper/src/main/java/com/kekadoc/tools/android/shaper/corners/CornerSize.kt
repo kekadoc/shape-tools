@@ -5,12 +5,13 @@ import androidx.annotation.FloatRange
 import com.google.android.material.shape.AbsoluteCornerSize
 import com.google.android.material.shape.CornerSize
 import com.google.android.material.shape.ShapeAppearanceModel
+import com.kekadoc.tools.android.shaper.ShapedDrawableBuilder
 import kotlin.math.min
 
-fun ShapeAppearanceModel.Builder.zeroSize(): CornerSize {
+fun ShapedDrawableBuilder.zeroCornerSize(): CornerSize {
     return AbsoluteCornerSize(0f)
 }
-fun ShapeAppearanceModel.Builder.fullSize(): CornerSize {
+fun ShapedDrawableBuilder.fullCornerSize(): CornerSize {
     return RelativeCornerSize(0.5f)
 }
 

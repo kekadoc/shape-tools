@@ -2,7 +2,6 @@ package com.kekadoc.tools.android.shape
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +10,8 @@ import com.google.android.material.shape.*
 import com.kekadoc.tools.android.*
 import com.kekadoc.tools.android.log.log
 import com.kekadoc.tools.android.shaper.*
-import com.kekadoc.tools.android.shaper.corners.CutRoundedCornerTreatment
 import com.kekadoc.tools.android.shaper.corners.RelativeCornerSize
-import com.kekadoc.tools.android.shaper.corners.fullSize
+import com.kekadoc.tools.android.shaper.corners.fullCornerSize
 import com.kekadoc.tools.android.shaper.edges.SquareEdgeTreatment
 import com.kekadoc.tools.android.view.ViewUtils.doOnMeasureView
 import com.kekadoc.tools.value.ValueUtils
@@ -82,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         view_1!!.background = shapedDrawable {
             shape {
                 //cutAllCorners(dimen(R.dimen.dimen_corner_size))
-                setAllCornerSizes(fullSize())
+                setAllCornerSizes(fullCornerSize())
             }
             setTint(Color.YELLOW)
             setRippleColor(themeColor(android.R.attr.colorAccent))
