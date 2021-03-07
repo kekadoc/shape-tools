@@ -8,36 +8,38 @@ fun ShapePath.startY() = startY
 fun ShapePath.endX() = endX
 fun ShapePath.endY() = endY
 
-fun ShapeAppearanceModel.Builder.roundAllCorners(@Px radius: Float = 0f) = apply {
-    setAllCorner(ShapeAppearanceUtils.DEF_CORNER_ROUND, radius)
+fun ShapeAppearanceModel.Builder.roundAllCorners(@Px size: Float = 0f) = apply {
+    setAllCorner(ShapeAppearanceUtils.DEF_CORNER_ROUND, size)
 }
-fun ShapeAppearanceModel.Builder.roundTopLeftCorner(@Px radius: Float) = apply {
-    setTopLeftCorner(RoundedCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.roundTopLeftCorner(@Px size: Float) = apply {
+    setTopLeftCorner(RoundedCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.roundTopRightCorner(@Px radius: Float) = apply {
-    setTopRightCorner(RoundedCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.roundTopRightCorner(@Px size: Float) = apply {
+    setTopRightCorner(RoundedCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.roundBottomLeftCorner(@Px radius: Float) = apply {
-    setBottomLeftCorner(RoundedCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.roundBottomLeftCorner(@Px size: Float) = apply {
+    setBottomLeftCorner(RoundedCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.roundBottomRightCorner(@Px radius: Float) = apply {
-    setBottomRightCorner(RoundedCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.roundBottomRightCorner(@Px size: Float) = apply {
+    setBottomRightCorner(RoundedCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.roundedAllCorners(radius: CornerSize) = apply {
-    setAllCorner(RoundedCornerTreatment(), radius)
+
+fun ShapeAppearanceModel.Builder.roundAllCorners(size: CornerSize) = apply {
+    setAllCorner(RoundedCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.roundTopLeftCorner(radius: CornerSize) = apply {
-    setTopLeftCorner(RoundedCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.roundTopLeftCorner(size: CornerSize) = apply {
+    setTopLeftCorner(RoundedCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.roundTopRightCorner(radius: CornerSize) = apply {
-    setTopRightCorner(RoundedCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.roundTopRightCorner(size: CornerSize) = apply {
+    setTopRightCorner(RoundedCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.roundBottomLeftCorner(radius: CornerSize) = apply {
-    setBottomLeftCorner(RoundedCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.roundBottomLeftCorner(size: CornerSize) = apply {
+    setBottomLeftCorner(RoundedCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.roundBottomRightCorner(radius: CornerSize) = apply {
-    setBottomRightCorner(RoundedCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.roundBottomRightCorner(size: CornerSize) = apply {
+    setBottomRightCorner(RoundedCornerTreatment(), size)
 }
+
 fun ShapeAppearanceModel.Builder.cutAllCorners(@Px size: Float = 0f) = apply {
     setAllCorner(ShapeAppearanceUtils.DEF_CORNER_CUT, size)
 }
@@ -53,20 +55,21 @@ fun ShapeAppearanceModel.Builder.cutBottomLeftCorner(@Px radius: Float) = apply 
 fun ShapeAppearanceModel.Builder.cutBottomRightCorner(@Px radius: Float) = apply {
     setBottomRightCorner(CutCornerTreatment(), radius)
 }
+
 fun ShapeAppearanceModel.Builder.cutAllCorners(size: CornerSize) = apply {
     setAllCorner(CutCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.cutTopLeftCorner(radius: CornerSize) = apply {
-    setTopLeftCorner(CutCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.cutTopLeftCorner(size: CornerSize) = apply {
+    setTopLeftCorner(CutCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.cutTopRightCorner(radius: CornerSize) = apply {
-    setTopRightCorner(CutCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.cutTopRightCorner(size: CornerSize) = apply {
+    setTopRightCorner(CutCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.cutBottomLeftCorner(radius: CornerSize) = apply {
-    setBottomLeftCorner(CutCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.cutBottomLeftCorner(size: CornerSize) = apply {
+    setBottomLeftCorner(CutCornerTreatment(), size)
 }
-fun ShapeAppearanceModel.Builder.cutBottomRightCorner(radius: CornerSize) = apply {
-    setBottomRightCorner(CutCornerTreatment(), radius)
+fun ShapeAppearanceModel.Builder.cutBottomRightCorner(size: CornerSize) = apply {
+    setBottomRightCorner(CutCornerTreatment(), size)
 }
 
 fun ShapeAppearanceModel.Builder.setTopLeftCorner(corner: CornerTreatment, @Px size: Float) = apply {

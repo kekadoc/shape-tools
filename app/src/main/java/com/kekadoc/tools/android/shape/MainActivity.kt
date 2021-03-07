@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
             runInterpolation {
                 shapedDrawable?.let {
                     val change = 0.01f * (if (negative) -1.0f else 1.0f)
-                    ValueUtils.addValueInRange(0f, 1f, it.getShapeDrawable()!!.interpolation, change, object : ValueUtils.RangeChangeEvents<Float> {
+                    ValueUtils.setValueInRange(0f, 1f, it.getShapeDrawable()!!.interpolation, change, object : ValueUtils.RangeChangeEvents<Float> {
                         override fun onChange(oldValue: Float, newValue: Float) {
                             it.getShapeDrawable()?.interpolation = newValue
                         }

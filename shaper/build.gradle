@@ -44,6 +44,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    api 'com.github.kekadoc:android-tools:0.2.0-alpha.3'
+    api 'com.github.kekadoc:android-tools:0.2.0-alpha.5'
 
 }
